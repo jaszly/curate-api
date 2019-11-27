@@ -1,31 +1,47 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
+const bcrypt = require('bcrypt-nodejs')
 
-const User = mongoose.model("user", {
-  name: {
-    type: String,
-    required: true
-    // required: [true, "name is required"]
-  },
-  email: {
-    type: String,
-    required: true
-    // required: [true, "email is required"]
-  },
-  password: {
-    type: String,
-    required: true
-    // required: [true, "name is required"]
-  },
-  avatar: {
-    type: String,
-    required: false
-  },
+const userSchema = mongoose.Schema({
+	name: {
+		type: String,
+		required: true
+	},
+	email: {
+		type: String,
+		required: true,
+		unique: true,
+		trim: true
+	},
+	password: {
+		type: String,
+		required: true,
+		minlength: 6,
+		trim: true
+	}
+})
 
-  //may or may not keep this
-  mobile: {
-    type: Number,
-    required: true
-  }
-});
+//encrypt pwd
+userSchema.pre('save', next => {
+	const user = this
 
-module.exports = User;
+	bcrypt.genSalt(10, (err, salt) => {
+		if (err) return next(err)
+
+		bcrypt.hash(user.password, salt, null, function(err, hash) {
+			if (err) return next(err)
+			user.password = hash
+			next()
+		})
+	})
+})
+
+//compare pwd method
+userSchema.methods.comparePassword = function(givenPassword, checkPassword) {
+	bcrypt.compare(givenPassword, this.password, (err, isMatch) => {
+		if (err) return checkPassword(err)
+		checkPassword(null, isMatch)
+	})
+}
+
+const User = mongoose.model('User', userSchema)
+module.exports = User
