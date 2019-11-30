@@ -1,23 +1,18 @@
+//packages
 const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const mongoose = require('mongoose')
-const router = require('./router')
-
 const app = express()
+const cors = require('cors')
+const bodyParser = require('body-parser')
+
+//middleware
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use(cors({ credentials: true }))
 
 require('dotenv').config()
-const MONGOURI = process.env.DATABASE
+require('./database')
 
-mongoose
-	.connect(MONGOURI, { useNewUrlParser: true })
-	.then(() => console.log('connected to mongodb :)'))
-	.catch(error => console.log(error))
-
-// APP SETUP
-app.use(bodyParser.json())
-app.use(cors())
-router(app)
+app.get('/spaces', require('./controllers/getPlaces'))
 
 app.listen(process.env.PORT, () => {
 	console.log(`'server running on port' ${process.env.PORT}`)
