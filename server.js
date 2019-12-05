@@ -1,4 +1,3 @@
-//packages
 const express = require('express')
 const app = express()
 const cors = require('cors')
@@ -18,7 +17,8 @@ app.get('/spaces/:id', require('./controllers/explore-this-space'))
 // app.get('/features', require('./controllers/get-features'))
 
 // app.post('/signup', require('.controllers/signup'))
-app.post('/users', require('./controllers/signup'))
+app.post('/signup', require('./controllers/signup'))
+// app.post('/login', require('./controllers/login'))
 
 app.listen(process.env.PORT, () => {
 	console.log(`'server running on port' ${process.env.PORT}`)
