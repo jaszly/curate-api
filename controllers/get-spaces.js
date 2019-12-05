@@ -3,8 +3,6 @@ const Spaces = require('../models/spaces.js')
 
 module.exports = (req, res) => {
 	Spaces.find({})
-		.select()
-		.populate('type')
 		.lean()
 		.then(spaces => {
 			spaces.map(space => {

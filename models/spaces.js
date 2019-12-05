@@ -9,7 +9,6 @@ const Spaces = mongoose.model('spaces', {
 		type: String,
 		required: true
 	},
-
 	city: {
 		type: String,
 		required: true
@@ -21,8 +20,11 @@ const Spaces = mongoose.model('spaces', {
 	},
 
 	images: {
-		type: String,
+		type: [String],
 		required: false
-	}
+	},
+
+	features: [{ type: mongoose.Schema.Types.ObjectId, ref: 'features' }]
+})
 
 module.exports = Spaces

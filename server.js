@@ -12,7 +12,13 @@ app.use(cors({ credentials: true }))
 require('dotenv').config()
 require('./database')
 
-app.get('/spaces', require('./controllers/getPlaces'))
+app.get('/spaces', require('./controllers/get-spaces'))
+app.get('/spaces/:id', require('./controllers/explore-this-space'))
+
+// app.get('/features', require('./controllers/get-features'))
+
+// app.post('/signup', require('.controllers/signup'))
+app.post('/users', require('./controllers/signup'))
 
 app.listen(process.env.PORT, () => {
 	console.log(`'server running on port' ${process.env.PORT}`)
