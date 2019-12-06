@@ -1,13 +1,10 @@
-const User = require('../models/User')
+const User = require('../models/users')
 const jwt = require('jsonwebtoken')
-
-const Users = require('../models/users.js')
-const jwt = require(jsonwebtoken)
 
 module.exports = (req, res) => {
 	//the token is set to this specific str of code
 	let token = req.headers.authorization.split(' ')[1] //split from 'bearers'
-	let verifiedUser = jwt.verify(token, 'idgafwabgtsam')
+	let verifiedUser = jwt.verify(token, `${process.env.SECRET}`)
 
 	User.findOne({ email: verifiedUser.email })
 		.then(user => {
