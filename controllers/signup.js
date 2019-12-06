@@ -10,8 +10,8 @@ module.exports = (req, res) => {
 	User.create(req.body)
 		.then(user => {
 			let token = jwt.sign(user.toObject(), process.env.SECRET)
-			let data = jwt.verify(token, process.env.SECRET)
-			res.send({ token })
+
+			res.send({ token: token })
 		})
 		.catch(error => res.send(error))
 	// 			encrypt =
