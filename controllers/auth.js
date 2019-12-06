@@ -1,5 +1,5 @@
 const User = require('../models/User')
-const jwt = require('jwt-simple')
+const jwt = require('jsonwebtoken')
 
 const Users = require('../models/users.js')
 const jwt = require(jsonwebtoken)
@@ -9,20 +9,12 @@ module.exports = (req, res) => {
 	let token = req.headers.authorization.split(' ')[1] //split from 'bearers'
 	let verifiedUser = jwt.verify(token, 'idgafwabgtsam')
 
-	User.findOne({ email: user.email })
+	User.findOne({ email: verifiedUser.email })
 		.then(user => {
 			if (!verifiedUser) {
 				res.send('token not valid')
 			} else {
-				res.send({ user })
-				//authenticate ignore for now
-				// if (user.password == dbUser.password) {
-				// 	dbUser = dbUser.toObject()
-				// 	delete dbUser.password
-				// 	res.send({ dbUser })
-				// } else {
-				// 	res.send('token not valid')
-				// }
+				res.send(user)
 			}
 		})
 
