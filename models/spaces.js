@@ -5,10 +5,17 @@ const Spaces = mongoose.model('spaces', {
 		type: String,
 		required: true
 	},
+
+	description: {
+		type: String,
+		required: false
+	},
+
 	neighborhood: {
 		type: String,
 		required: true
 	},
+
 	city: {
 		type: String,
 		required: true
