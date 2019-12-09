@@ -3,11 +3,11 @@ const mongoose = require('../database')
 const Features = mongoose.model('features', {
 	feature: {
 		type: String,
-		required: true
+		required: false
 	},
 	icon: {
 		type: String,
-		required: true
+		required: false
 	}
 })
 
