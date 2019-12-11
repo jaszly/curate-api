@@ -31,7 +31,12 @@ const Spaces = mongoose.model('spaces', {
 		required: false
 	},
 
-	features: [{ type: mongoose.Schema.Types.ObjectId, ref: 'features' }]
+	features: [{ type: mongoose.Schema.Types.ObjectId, ref: 'features' }],
+
+	host: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'user'
+	}
 })
 
 module.exports = Spaces

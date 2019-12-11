@@ -3,6 +3,7 @@ const Spaces = require('../models/spaces.js')
 
 module.exports = (req, res) => {
 	Spaces.find({})
+		.populate('host features')
 		.lean()
 		.then(spaces => {
 			spaces.map(space => {

@@ -26,6 +26,10 @@ const User = mongoose.model('user', {
 	avatar: {
 		type: String,
 		required: false
+	},
+	about: {
+		type: String,
+		required: false
 	}
 })
 

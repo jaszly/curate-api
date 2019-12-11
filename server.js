@@ -16,12 +16,22 @@ require('./database')
 app.get('/spaces/:id', require('./controllers/explore-this-space'))
 app.get('/spaces', require('./controllers/get-spaces'))
 app.get('/profile', require('./controllers/get-profile'))
-app.get('/list-your-space', require('./controllers/create-space'))
+
+app.post('/spaces', require('./controllers/create-space'))
+app.get('/cities', require('./controllers/get-cities'))
+
+app.patch('/spaces/:id', (req, res) => {
+	console.log(req.params)
+})
+app.delete('/spaces/:id', (req, res) => {
+	console.log(req.params)
+})
 app.post('/signup', require('./controllers/signup'))
 app.post('/login', require('./controllers/login'))
 
 //admin routes
 app.get('/auth', require('./controllers/auth'))
+app.get('/features', require('./controllers/get-features'))
 
 app.listen(process.env.PORT, () => {
 	console.log(`'server running on port' ${process.env.PORT}`)
